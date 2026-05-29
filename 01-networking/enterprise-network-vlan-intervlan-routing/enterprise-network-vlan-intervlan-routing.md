@@ -146,17 +146,17 @@ Step 16 — Pre ACL Ping Test
 Test connectivity before ACL.  
 ![Pre ACL Ping](./16-pre-acl-ping.png)
 
-Step 17 — Switch1 Ports  
-Configure Switch1 VLAN ports.  
-![Switch1 Ports](./17-acl-config.png)
+Step 17 — ACL Configuration
+Configure ACL rules on the router/switch.
+![ACL Config](./17-acl-config.png)
 
-Step 18 — ACL Test  
-Verify ACL blocking/allowing traffic.  
+Step 18 — ACL Test
+Verify ACL blocking/allowing traffic.
 ![ACL Test](./18-acl-test.png)
 
-Step 19 — VTP Sync
-Verify VLAN sync.  
-![VTP Sync](./19-vtp-sync.png)
+Step 19 — SSH Test
+Test SSH remote access to switches.
+![SSH Test](./19-ssh-test.png)
 
 Step 20 — Final Verification
 Check full network.  
