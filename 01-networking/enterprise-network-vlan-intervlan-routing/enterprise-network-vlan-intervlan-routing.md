@@ -56,7 +56,6 @@ Configure VLANs, InterVLAN routing, VTP, Management VLAN, DHCP, SSH, Port Securi
 | G0/0 | Switch1 | Fa0/23 | Copper Straight-Through |
 | G0/1 | Switch2 | Fa0/23 | Copper Straight-Through |
 
-![Topology](./screenshots/01-topology.png)
 
 ---
 
