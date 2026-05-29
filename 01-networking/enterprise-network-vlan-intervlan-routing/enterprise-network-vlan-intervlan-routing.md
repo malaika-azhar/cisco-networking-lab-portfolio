@@ -80,128 +80,93 @@ Configure VLANs, InterVLAN routing, VTP, Management VLAN, DHCP, SSH, Port Securi
 
 ---
 
-## 📋 Steps & Screenshots
+📋 Steps & Screenshots
 
-### Step 1 — Build the Topology
-Set up all devices and connect cables exactly as shown above.
-![Topology](./screenshots/01-topology.png)
+Step 1 — Build the Topology
+Set up all devices and connect cables exactly as shown above.  
+![Topology](./01-topology.png)
 
----
+Step 2 — Configure VTP on Switch1 (Server)
+Set Switch1 as VTP Server so it can push VLANs to Switch2 automatically.  
+![VTP Server](./02-vtp-server.png)
 
-### Step 2 — Configure VTP on Switch1 (Server)
-Set Switch1 as VTP Server so it can push VLANs to Switch2 automatically.
-![VTP Server](./screenshots/02-vtp-server.png)
+Step 3 — Configure VTP on Switch2 (Client)
+Set Switch2 as VTP Client so it receives VLANs from Switch1.  
+![VTP Client](./03-vtp-client.png)
 
----
+Step 4 — Create VLANs on Switch1 Only
+Create VLAN 10, 20, 99 on Switch1. Switch2 will sync automatically via VTP.  
+![VLANs Created](./04-vlans-created.png)
 
-### Step 3 — Configure VTP on Switch2 (Client)
-Set Switch2 as VTP Client so it receives VLANs from Switch1.
-![VTP Client](./screenshots/03-vtp-client.png)
+Step 5 — Verify VLAN Sync
+Confirm VLANs appear on Switch2.  
+![VTP Sync](./05-vtp-sync.png)
 
----
+Step 6 — Configure Switch1 Ports
+Assign VLANs on Switch1.  
+![Switch1 Ports](./06-switch1-ports.png)
 
-### Step 4 — Create VLANs on Switch1 Only
-Create VLAN 10, 20, 99 on Switch1. Switch2 will sync automatically via VTP.
-![VLANs Created](./screenshots/04-vlans-created.png)
+Step 7 — Configure Switch2 Ports
+Assign VLANs on Switch2.  
+![Switch2 Ports](./07-switch2-ports.png)
 
----
+Step 8 — Unused Ports Security
+Disable unused ports.  
+![Unused Ports](./08-unused-ports.png)
 
-### Step 5 — Verify VLANs Synced to Switch2
-Confirm VLAN 10, 20, 99 appear on Switch2 automatically ✅
-![VTP Sync](./screenshots/05-vtp-sync.png)
+Step 9 — Port Security
+Enable port security.  
+![Port Security](./09-port-security.png)
 
----
+Step 10 — Management VLAN
+Configure management VLAN.  
+![Management VLAN](./10-mgmt-vlan.png)
 
-### Step 6 — Configure Switch1 Ports
-Assign access ports to correct VLANs and configure trunk port to Switch2.
-![Switch1 Ports](./screenshots/06-switch1-ports.png)
+Step 11 — SSH Switches
+Enable SSH.  
+![SSH Switches](./11-ssh-switches.png)
 
----
+Step 12 — Router Configuration
+Configure router for interVLAN routing.  
+![Router Config](./12-router-config.png)
 
-### Step 7 — Configure Switch2 Ports
-Assign access ports to correct VLANs and configure trunk port to Switch1.
-![Switch2 Ports](./screenshots/07-switch2-ports.png)
+Step 13 — DHCP Pools
+Configure DHCP.  
+![DHCP Pools](./13-dhcp-pools.png)
 
----
+Step 14 — PC DHCP
+Verify DHCP IP assignment.  
+![PC DHCP](./14-pc-dhcp.png)
 
-### Step 8 — Disable Unused Ports on Both Switches
-Shutdown all unused ports on Switch1 and Switch2 for security hardening.
-![Unused Ports](./screenshots/08-unused-ports.png)
+Step 15 — DHCP Binding
+Confirm leases.  
+![DHCP Binding](./15-dhcp-binding.png)
 
----
+Step 16 — Pre ACL Ping Test
+Test connectivity before ACL.  
+![Pre ACL Ping](./16-pre-acl-ping.png)
 
-### Step 9 — Configure Port Security on Access Ports
-Enable sticky MAC port security on all access ports on Switch1.
-![Port Security](./screenshots/09-port-security.png)
+Step 17 — Switch1 Ports
+Configure Switch1 VLAN ports.  
+![Switch1 Ports](./17-switch1-ports.png)
 
----
+Step 18 — ACL Test
+Verify ACL blocking/allowing traffic.  
+![ACL Test](./18-acl-test.png)
 
-### Step 10 — Configure Management VLAN SVI on Both Switches
-Create VLAN 99 SVI interface on both switches for remote management access.
-![Management VLAN](./screenshots/10-mgmt-vlan.png)
+Step 19 — VTP Sync
+Verify VLAN sync.  
+![VTP Sync](./19-vtp-sync.png)
 
----
+Step 20 — Final Verification
+Check full network.  
+![Final Verify](./20-final-verify.png)
 
-### Step 11 — Configure SSH on Both Switches
-Generate RSA keys and enable SSH v2 on Switch1 and Switch2 for secure access.
-![SSH Switches](./screenshots/11-ssh-switches.png)
+Step 21 — Save Config
+Save configuration.  
+![Save Config](./21-save-config.png)
 
----
 
-### Step 12 — Configure Router Subinterfaces
-Create subinterfaces on Router G0/0 and G0/1 with dot1Q encapsulation for each VLAN.
-![Router Subinterfaces](./screenshots/12-router-subinterfaces.png)
-
----
-
-### Step 13 — Configure DHCP on Router
-Create DHCP pools for VLAN 10 and VLAN 20 on the router.
-![DHCP Pools](./screenshots/13-dhcp-pools.png)
-
----
-
-### Step 14 — Set PCs to DHCP
-On each PC go to Desktop → IP Configuration → select DHCP and wait for IP assignment ✅
-![PC DHCP](./screenshots/14-pc-dhcp.png)
-
----
-
-### Step 15 — Verify DHCP Bindings
-Confirm all PCs received correct IPs from their VLAN pools on the router.
-![DHCP Binding](./screenshots/15-dhcp-binding.png)
-
----
-
-### Step 16 — Configure ACL Between VLANs
-Block Sales (VLAN 10) from pinging IT (VLAN 20) but allow IT to ping Sales.
-![ACL VLAN](./screenshots/16-acl-vlan.png)
-
----
-
-### Step 17 — Test ACL
-PC0 (Sales) ping to IT — blocked ❌
-PC1 (IT) ping to Sales — allowed ✅
-![ACL Test](./screenshots/17-acl-test.png)
-
----
-
-### Step 18 — Test SSH to Switches
-SSH from Admin PC terminal to both switches successfully ✅
-![SSH Test](./screenshots/18-ssh-test.png)
-
----
-
-### Step 19 — Final Verification
-Run all show commands on Router and Switch1 to confirm full configuration ✅
-![Final Verify](./screenshots/19-final-verify.png)
-
----
-
-### Step 20 — Save Configuration
-Save running config to startup config on Router and both Switches.
-![Save Config](./screenshots/20-save-config.png)
-
----
 
 ## 📟 Summary of Commands
 | Command | Purpose |
