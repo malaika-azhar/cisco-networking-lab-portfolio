@@ -250,6 +250,6 @@ How to build a complete enterprise network with VLANs, VTP synchronization, Inte
 ## 📁 Files
 | File | Description |
 |------|-------------|
-| `enterprise-network-vlan-intervlan-routing.md` | Full lab documentation |
+| `README.md` | Full lab documentation |
 | `enterprise-network-vlan-intervlan-routing.pkt` | Packet Tracer file |
 
