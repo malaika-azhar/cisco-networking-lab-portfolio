@@ -23,7 +23,7 @@
 | Lab | Topics |
 |-----|--------|
 | [Enterprise Network VLAN & InterVLAN Routing](./01-networking/enterprise-network-vlan-intervlan-routing/) | VLAN segmentation, trunk ports, Layer 3 switching |
-| [Routing Protocols — OSPF, EIGRP, RIP, Static](./01-networking/routing-protocols-ospf-eigrp-rip-static.md) | Dynamic routing, administrative distance, route tables |
+[Routing Protocols — OSPF, EIGRP, RIP, Static](01-networking/routing-protocols-ospf-eigrp-rip-static/README.md)	Dynamic routing, administrative distance, route tables
 | [NAT & PAT Address Translation](./01-networking/nat-pat-address-translation.md) | Static NAT, dynamic NAT, PAT/overload |
 | [DHCP Multi-VLAN Deployment](./01-networking/dhcp-multivlan-deployment.md) | DHCP pools, helper addresses, relay agents |
 | [IP Addressing, Subnetting, VLSM & CIDR](./01-networking/ip-addressing-subnetting-vlsm-cidr.md) | Subnet calculations, VLSM design, CIDR notation |
