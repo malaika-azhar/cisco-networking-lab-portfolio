@@ -1,7 +1,7 @@
 # 👋 Hi, I'm Malaika Azhar
 **Junior Network Engineer | NOC Operations | Network Security**
 
-16 hands-on labs across 3 domains — built from real-world scenarios, aligned with CCNA and CompTIA Security+ standards.
+Hands-on labs across 3 domains — built from real-world scenarios, aligned with CCNA and CompTIA Security+ standards.
 
 ---
 
@@ -17,7 +17,7 @@
 
 ## 📁 Lab Portfolio
 
-### 🔵 01 · Networking — 6 Labs
+### 🔵 01 · Networking — 10 Labs
 
 | Lab | Topics |
 |---|---|
@@ -27,6 +27,10 @@
 | DHCP Multi-VLAN Deployment | DHCP pools, helper addresses, relay agents |
 | IP Addressing, Subnetting, VLSM & CIDR | Subnet calculations, VLSM design, CIDR notation |
 | Network Troubleshooting Case Studies | Systematic fault isolation, ping, traceroute, show commands |
+| HSRP — Network Redundancy & Failover | Active/standby, virtual IP, preemption |
+| OSPF Virtual Link | Backbone connectivity, area 0 extension |
+| OSPF Multi-Area — ABR & ASBR | Area border routers, route summarization |
+| Route Redistribution — OSPF & EIGRP | Inter-protocol routing, metric conversion |
 
 ---
 
@@ -58,10 +62,10 @@
 
 | Domain | Labs | Status |
 |---|---|---|
-| 01 · Networking | 6 | ✅ Complete |
-| 02 · Network Security | 5 | ✅ Complete |
-| 03 · IT Support | 5 | ✅ Complete |
-| **Total** | **16** | ✅ All Complete |
+| 01 · Networking | 10 | 🔄 In Progress |
+| 02 · Network Security | 5 | 🔄 In Progress |
+| 03 · IT Support | 5 | 🔄 In Progress |
+| **Total** | **20** | 🔄 In Progress |
 
 ---
 
