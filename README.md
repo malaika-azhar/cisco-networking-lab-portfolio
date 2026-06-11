@@ -21,8 +21,8 @@ Hands-on labs across 3 domains — built from real-world scenarios, aligned with
 
 | Lab | Topics |
 |---|---|
-| Enterprise Network VLAN & InterVLAN Routing | VLAN segmentation, trunk ports, Layer 3 switching |
-| Routing Protocols — OSPF, EIGRP, RIP, Static | Dynamic routing, administrative distance, route tables |
+| [Enterprise Network VLAN & InterVLAN Routing](./01-networking/enterprise-network-vlan-intervlan-routing) | VLAN segmentation, trunk ports, Layer 3 switching |
+| [Routing Protocols — OSPF, EIGRP, RIP, Static](./01-networking/routing-protocols-ospf-eigrp-rip-static) | Dynamic routing, administrative distance, route tables |
 | NAT & PAT Address Translation | Static NAT, dynamic NAT, PAT/overload |
 | DHCP Multi-VLAN Deployment | DHCP pools, helper addresses, relay agents |
 | IP Addressing, Subnetting, VLSM & CIDR | Subnet calculations, VLSM design, CIDR notation |
