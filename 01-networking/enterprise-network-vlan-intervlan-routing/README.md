@@ -83,126 +83,321 @@ Configure VLANs, InterVLAN routing, VTP, Management VLAN, DHCP, SSH, Port Securi
 
 ### Step 1 — Build the Topology
 Set up all devices and connect cables exactly as shown above.
+```
+No CLI commands in this step — this is a physical/logical wiring step done
+in the Packet Tracer GUI (drag devices, connect cables per the tables above).
+```
 ![Topology](./screenshots/01-topology.png)
 
 ---
 
 ### Step 2 — Configure VTP on Switch1 (Server)
 Set Switch1 as VTP Server so it can push VLANs to Switch2 automatically.
+```
+Switch1(config)# vtp mode server
+Switch1(config)# vtp domain LABNET
+Switch1(config)# vtp version 2
+Switch1(config)# end
+Switch1# show vtp status
+```
 ![VTP Server](./screenshots/02-vtp-server.png)
 
 ---
 
 ### Step 3 — Configure VTP on Switch2 (Client)
 Set Switch2 as VTP Client so it receives VLANs from Switch1.
+```
+Switch2(config)# vtp mode client
+Switch2(config)# vtp domain LABNET
+Switch2(config)# end
+Switch2# show vtp status
+```
 ![VTP Client](./screenshots/03-vtp-client.png)
 
 ---
 
 ### Step 4 — Create VLANs on Switch1 Only
 Create VLAN 10, 20, 99 on Switch1. Switch2 will sync automatically via VTP.
+```
+Switch1(config)# vlan 10
+Switch1(config-vlan)# name Sales
+Switch1(config-vlan)# exit
+Switch1(config)# vlan 20
+Switch1(config-vlan)# name IT
+Switch1(config-vlan)# exit
+Switch1(config)# vlan 99
+Switch1(config-vlan)# name Management
+Switch1(config-vlan)# exit
+```
 ![VLANs Created](./screenshots/04-vlans-created.png)
 
 ---
 
 ### Step 5 — Verify VLAN Sync
 Confirm VLANs appear on Switch2.
+```
+Switch2# show vlan brief
+Switch2# show vtp status
+```
 ![VTP Sync](./screenshots/05-vtp-sync.png)
 
 ---
 
 ### Step 6 — Configure Switch1 Ports
 Assign VLANs on Switch1.
+```
+Switch1(config)# interface fa0/1
+Switch1(config-if)# switchport mode access
+Switch1(config-if)# switchport access vlan 10
+Switch1(config-if)# exit
+Switch1(config)# interface fa0/2
+Switch1(config-if)# switchport mode access
+Switch1(config-if)# switchport access vlan 20
+Switch1(config-if)# exit
+Switch1(config)# interface fa0/3
+Switch1(config-if)# switchport mode access
+Switch1(config-if)# switchport access vlan 99
+Switch1(config-if)# exit
+Switch1(config)# interface fa0/23
+Switch1(config-if)# switchport mode trunk
+Switch1(config-if)# switchport trunk allowed vlan 10,20,99
+Switch1(config-if)# exit
+Switch1(config)# interface fa0/24
+Switch1(config-if)# switchport mode trunk
+Switch1(config-if)# switchport trunk allowed vlan 10,20,99
+```
 ![Switch1 Ports](./screenshots/06-switch1-ports.png)
 
 ---
 
 ### Step 7 — Configure Switch2 Ports
 Assign VLANs on Switch2.
+```
+Switch2(config)# interface fa0/1
+Switch2(config-if)# switchport mode access
+Switch2(config-if)# switchport access vlan 10
+Switch2(config-if)# exit
+Switch2(config)# interface fa0/2
+Switch2(config-if)# switchport mode access
+Switch2(config-if)# switchport access vlan 20
+Switch2(config-if)# exit
+Switch2(config)# interface fa0/23
+Switch2(config-if)# switchport mode trunk
+Switch2(config-if)# switchport trunk allowed vlan 10,20,99
+Switch2(config-if)# exit
+Switch2(config)# interface fa0/24
+Switch2(config-if)# switchport mode trunk
+Switch2(config-if)# switchport trunk allowed vlan 10,20,99
+```
 ![Switch2 Ports](./screenshots/07-switch2-ports.png)
 
 ---
 
 ### Step 8 — Unused Ports Security
 Disable unused ports.
+```
+Switch1(config)# interface range fa0/4-22
+Switch1(config-if-range)# shutdown
+Switch1(config-if-range)# exit
+
+Switch2(config)# interface range fa0/3-22
+Switch2(config-if-range)# shutdown
+```
 ![Unused Ports](./screenshots/08-unused-ports.png)
 
 ---
 
 ### Step 9 — Port Security
 Enable port security.
+```
+Switch1(config)# interface fa0/1
+Switch1(config-if)# switchport port-security
+Switch1(config-if)# switchport port-security maximum 1
+Switch1(config-if)# switchport port-security mac-address sticky
+Switch1(config-if)# switchport port-security violation shutdown
+Switch1(config-if)# spanning-tree portfast
+Switch1(config-if)# spanning-tree bpduguard enable
+Switch1(config-if)# exit
+! Repeat the same block for Fa0/2 and Fa0/3 on Switch1,
+! and for Fa0/1 and Fa0/2 on Switch2.
+```
 ![Port Security](./screenshots/09-port-security.png)
 
 ---
 
 ### Step 10 — Management VLAN
 Configure management VLAN.
+```
+Switch1(config)# interface vlan 99
+Switch1(config-if)# ip address 192.168.99.2 255.255.255.0
+Switch1(config-if)# no shutdown
+Switch1(config-if)# exit
+Switch1(config)# ip default-gateway 192.168.99.1
+
+Switch2(config)# interface vlan 99
+Switch2(config-if)# ip address 192.168.99.3 255.255.255.0
+Switch2(config-if)# no shutdown
+Switch2(config-if)# exit
+Switch2(config)# ip default-gateway 192.168.99.1
+```
 ![Management VLAN](./screenshots/10-mgmt-vlan.png)
 
 ---
 
 ### Step 11 — SSH Switches
 Enable SSH.
+```
+Switch1(config)# ip domain-name lab.local
+Switch1(config)# crypto key generate rsa
+   (key size: 1024)
+Switch1(config)# username admin secret Cisco12345
+Switch1(config)# line vty 0 15
+Switch1(config-line)# login local
+Switch1(config-line)# transport input ssh
+Switch1(config-line)# exit
+Switch1(config)# ip ssh version 2
+
+! Repeat the same block on Switch2 (hostname Switch2 instead of Switch1).
+```
 ![SSH Switches](./screenshots/11-ssh-switches.png)
 
 ---
 
 ### Step 12 — Router Configuration
 Configure router for InterVLAN routing.
+```
+Router(config)# interface g0/0
+Router(config-if)# no shutdown
+Router(config-if)# exit
+
+Router(config)# interface g0/0.10
+Router(config-subif)# encapsulation dot1Q 10
+Router(config-subif)# ip address 192.168.10.1 255.255.255.0
+Router(config-subif)# exit
+
+Router(config)# interface g0/0.20
+Router(config-subif)# encapsulation dot1Q 20
+Router(config-subif)# ip address 192.168.20.1 255.255.255.0
+Router(config-subif)# exit
+
+Router(config)# interface g0/0.99
+Router(config-subif)# encapsulation dot1Q 99
+Router(config-subif)# ip address 192.168.99.1 255.255.255.0
+Router(config-subif)# exit
+```
 ![Router Config](./screenshots/12-router-config.png)
 
 ---
 
 ### Step 13 — DHCP Pools
 Configure DHCP.
+```
+Router(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.10
+Router(config)# ip dhcp excluded-address 192.168.20.1 192.168.20.10
+
+Router(config)# ip dhcp pool SALES_VLAN10
+Router(dhcp-config)# network 192.168.10.0 255.255.255.0
+Router(dhcp-config)# default-router 192.168.10.1
+Router(dhcp-config)# dns-server 8.8.8.8
+Router(dhcp-config)# exit
+
+Router(config)# ip dhcp pool IT_VLAN20
+Router(dhcp-config)# network 192.168.20.0 255.255.255.0
+Router(dhcp-config)# default-router 192.168.20.1
+Router(dhcp-config)# dns-server 8.8.8.8
+Router(dhcp-config)# exit
+```
 ![DHCP Pools](./screenshots/13-dhcp-pools.png)
 
 ---
 
 ### Step 14 — PC DHCP
 Verify DHCP IP assignment.
+```
+PC0> ipconfig /release
+PC0> ipconfig /renew
+PC0> ipconfig
+```
 ![PC DHCP](./screenshots/14-pc-dhcp.png)
 
 ---
 
 ### Step 15 — DHCP Binding
 Confirm leases.
+```
+Router# show ip dhcp binding
+```
 ![DHCP Binding](./screenshots/15-dhcp-binding.png)
 
 ---
 
 ### Step 16 — Pre ACL Ping Test
 Test connectivity before ACL.
+```
+PC0> ping 192.168.20.1
+PC1> ping 192.168.10.1
+PC0> ping 192.168.99.10
+```
 ![Pre ACL Ping](./screenshots/16-pre-acl-ping.png)
 
 ---
 
 ### Step 17 — ACL Configuration
 Configure ACL rules on the router.
+```
+Router(config)# access-list 110 deny ip 192.168.20.0 0.0.0.255 192.168.10.0 0.0.0.255
+Router(config)# access-list 110 permit ip any any
+
+Router(config)# interface g0/0.10
+Router(config-subif)# ip access-group 110 in
+```
 ![ACL Config](./screenshots/17-acl-config.png)
 
 ---
 
 ### Step 18 — ACL Test
 Verify ACL blocking/allowing traffic.
+```
+PC1> ping 192.168.10.1
+   (Request timed out — VLAN 20 to VLAN 10 is blocked)
+
+PC0> ping 192.168.20.1
+   (Reply received — VLAN 10 to VLAN 20 is still permitted)
+```
 ![ACL Test](./screenshots/18-acl-test.png)
 
 ---
 
 ### Step 19 — SSH Test
 Test SSH remote access to switches.
+```
+AdminPC> ssh -l admin 192.168.99.2
+AdminPC> ssh -l admin 192.168.99.3
+```
 ![SSH Test](./screenshots/19-ssh-test.png)
 
 ---
 
 ### Step 20 — Final Verification
 Check full network.
+```
+Switch1# show vlan brief
+Switch2# show vlan brief
+Router# show ip interface brief
+Router# show ip route
+Router# show access-lists
+```
 ![Final Verify](./screenshots/20-final-verify.png)
 
 ---
 
 ### Step 21 — Save Config
 Save configuration.
+```
+Switch1# copy running-config startup-config
+Switch2# copy running-config startup-config
+Router# copy running-config startup-config
+```
 ![Save Config](./screenshots/21-save-config.png)
 
 
@@ -252,4 +447,3 @@ How to build a complete enterprise network with VLANs, VTP synchronization, Inte
 |------|-------------|
 | `README.md` | Full lab documentation |
 | `enterprise-network-vlan-intervlan-routing.pkt` | Packet Tracer file |
-
