@@ -90,37 +90,167 @@ and test end-to-end connectivity after each protocol implementation.
 ## 📋 Steps & Screenshots
 
 ### Step 1 — Build the Topology
+```
+No CLI commands in this step — physical/logical wiring done in the
+Packet Tracer GUI (place devices, connect cables per the tables above).
+```
 ![Topology](screenshots/SS1-topology.png)
 
 ### Step 2 — Configure IP Addressing on All Routers
+```
+Router(config)# hostname R1
+R1(config)# no ip domain-lookup
+R1(config)# interface g0/0
+R1(config-if)# ip address 192.168.1.1 255.255.255.0
+R1(config-if)# no shutdown
+R1(config-if)# exit
+R1(config)# interface g0/1
+R1(config-if)# ip address 10.0.12.1 255.255.255.252
+R1(config-if)# no shutdown
+
+Router(config)# hostname R2
+R2(config)# no ip domain-lookup
+R2(config)# interface g0/0
+R2(config-if)# ip address 192.168.2.1 255.255.255.0
+R2(config-if)# no shutdown
+R2(config-if)# exit
+R2(config)# interface g0/1
+R2(config-if)# ip address 10.0.12.2 255.255.255.252
+R2(config-if)# no shutdown
+R2(config-if)# exit
+R2(config)# interface g0/2
+R2(config-if)# ip address 10.0.23.1 255.255.255.252
+R2(config-if)# no shutdown
+
+Router(config)# hostname R3
+R3(config)# no ip domain-lookup
+R3(config)# interface g0/0
+R3(config-if)# ip address 192.168.3.1 255.255.255.0
+R3(config-if)# no shutdown
+R3(config-if)# exit
+R3(config)# interface g0/1
+R3(config-if)# ip address 10.0.23.2 255.255.255.252
+R3(config-if)# no shutdown
+```
 ![R1 Interfaces](screenshots/SS2-R1-interfaces.png)
 ![R2 Interfaces](screenshots/SS3-R2-interfaces.png)
 ![R3 Interfaces](screenshots/SS4-R3-interfaces.png)
 
 ### Step 3 — Configure Static Routes
+```
+R1(config)# ip route 192.168.2.0 255.255.255.0 10.0.12.2
+R1(config)# ip route 192.168.3.0 255.255.255.0 10.0.12.2
+
+R2(config)# ip route 192.168.1.0 255.255.255.0 10.0.12.1
+R2(config)# ip route 192.168.3.0 255.255.255.0 10.0.23.2
+
+R3(config)# ip route 192.168.1.0 255.255.255.0 10.0.23.1
+R3(config)# ip route 192.168.2.0 255.255.255.0 10.0.23.1
+```
 ![Static Routes R1](screenshots/SS5-static-R1-route.png)
 
 ### Step 4 — Test Static Connectivity
+```
+R1# show ip route
+PC1> ping 192.168.3.10
+```
 ![Static Ping](screenshots/SS6-static-ping.png)
 
 ### Step 5 — Migrate to RIP v2
+```
+R1(config)# no ip route 192.168.2.0 255.255.255.0 10.0.12.2
+R1(config)# no ip route 192.168.3.0 255.255.255.0 10.0.12.2
+R1(config)# router rip
+R1(config-router)# version 2
+R1(config-router)# no auto-summary
+R1(config-router)# network 192.168.1.0
+R1(config-router)# network 10.0.12.0
+
+R2(config)# no ip route 192.168.1.0 255.255.255.0 10.0.12.1
+R2(config)# no ip route 192.168.3.0 255.255.255.0 10.0.23.2
+R2(config)# router rip
+R2(config-router)# version 2
+R2(config-router)# no auto-summary
+R2(config-router)# network 192.168.2.0
+R2(config-router)# network 10.0.12.0
+R2(config-router)# network 10.0.23.0
+
+R3(config)# no ip route 192.168.1.0 255.255.255.0 10.0.23.1
+R3(config)# no ip route 192.168.2.0 255.255.255.0 10.0.23.1
+R3(config)# router rip
+R3(config-router)# version 2
+R3(config-router)# no auto-summary
+R3(config-router)# network 192.168.3.0
+R3(config-router)# network 10.0.23.0
+```
 ![RIP Routes R1](screenshots/SS7-rip-R1-route.png)
 
 ### Step 6 — Test RIP Connectivity
+```
+R1# show ip route
+PC1> ping 192.168.3.10
+```
 ![RIP Ping](screenshots/SS8-rip-ping.png)
 
 ### Step 7 — Migrate to OSPF
+```
+R1(config)# no router rip
+R1(config)# router ospf 1
+R1(config-router)# network 192.168.1.0 0.0.0.255 area 0
+R1(config-router)# network 10.0.12.0 0.0.0.3 area 0
+
+R2(config)# no router rip
+R2(config)# router ospf 1
+R2(config-router)# network 192.168.2.0 0.0.0.255 area 0
+R2(config-router)# network 10.0.12.0 0.0.0.3 area 0
+R2(config-router)# network 10.0.23.0 0.0.0.3 area 0
+
+R3(config)# no router rip
+R3(config)# router ospf 1
+R3(config-router)# network 192.168.3.0 0.0.0.255 area 0
+R3(config-router)# network 10.0.23.0 0.0.0.3 area 0
+```
 ![OSPF Neighbors R2](screenshots/SS9-ospf-R2-neighbors.png)
 ![OSPF Routes R1](screenshots/SS10-ospf-R1-route.png)
 
 ### Step 8 — Test OSPF Connectivity
+```
+R2# show ip ospf neighbor
+R1# show ip route
+PC1> ping 192.168.3.10
+```
 ![OSPF Ping](screenshots/SS11-ospf-ping.png)
 
 ### Step 9 — Migrate to EIGRP
+```
+R1(config)# no router ospf 1
+R1(config)# router eigrp 100
+R1(config-router)# network 192.168.1.0 0.0.0.255
+R1(config-router)# network 10.0.12.0 0.0.0.3
+R1(config-router)# no auto-summary
+
+R2(config)# no router ospf 1
+R2(config)# router eigrp 100
+R2(config-router)# network 192.168.2.0 0.0.0.255
+R2(config-router)# network 10.0.12.0 0.0.0.3
+R2(config-router)# network 10.0.23.0 0.0.0.3
+R2(config-router)# no auto-summary
+
+R3(config)# no router ospf 1
+R3(config)# router eigrp 100
+R3(config-router)# network 192.168.3.0 0.0.0.255
+R3(config-router)# network 10.0.23.0 0.0.0.3
+R3(config-router)# no auto-summary
+```
 ![EIGRP Neighbors R2](screenshots/SS12-eigrp-R2-neighbors.png)
 ![EIGRP Routes R1](screenshots/SS13-eigrp-R1-route.png)
 
 ### Step 10 — Test EIGRP Connectivity
+```
+R2# show ip eigrp neighbors
+R1# show ip route
+PC1> ping 192.168.3.10
+```
 ![EIGRP Ping](screenshots/SS14-eigrp-ping.png)
 
 ---
