@@ -94,7 +94,7 @@ and test end-to-end connectivity after each protocol implementation.
 No CLI commands in this step — physical/logical wiring done in the
 Packet Tracer GUI (place devices, connect cables per the tables above).
 ```
-![Topology](screenshots/SS1-topology.png)
+![Topology](./screenshots/01-routing-topology.PNG)
 
 ### Step 2 — Configure IP Addressing on All Routers
 ```
