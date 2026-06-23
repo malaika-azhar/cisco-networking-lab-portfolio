@@ -70,7 +70,7 @@ Deploy 3 routers (HQ-R1, HQ-R2, HQ-R3) in a triangular structure, each connected
 ```
 No CLI commands — physical/logical wiring in the Packet Tracer GUI.
 ```
-![Topology](./screenshots/01-vlsm-topology.png)
+![Topology](./screenshots/01-vlsm-topology.PNG)
 
 ---
 
@@ -90,7 +90,7 @@ HQ-R1(config-if)# ip address 172.16.7.106 255.255.255.252
 HQ-R1(config-if)# no shutdown
 HQ-R1(config-if)# end
 ```
-![HQ-R1 Config](./screenshots/02-hq-r1-config.png)
+![HQ-R1 Config](./screenshots/02-hq-r1-config.PNG)
 
 ---
 
@@ -110,7 +110,7 @@ HQ-R2(config-if)# ip address 172.16.7.101 255.255.255.252
 HQ-R2(config-if)# no shutdown
 HQ-R2(config-if)# end
 ```
-![HQ-R2 Config](./screenshots/03-hq-r2-config.png)
+![HQ-R2 Config](./screenshots/03-hq-r2-config.PNG)
 
 ---
 
@@ -130,7 +130,7 @@ HQ-R3(config-if)# ip address 172.16.7.105 255.255.255.252
 HQ-R3(config-if)# no shutdown
 HQ-R3(config-if)# end
 ```
-![HQ-R3 Config](./screenshots/04-hq-r3-config.png)
+![HQ-R3 Config](./screenshots/04-hq-r3-config.PNG)
 
 ---
 
@@ -142,7 +142,7 @@ HQ-R1(config-router)# network 172.16.7.96 0.0.0.3 area 0
 HQ-R1(config-router)# network 172.16.7.104 0.0.0.3 area 0
 HQ-R1(config-router)# end
 ```
-![HQ-R1 OSPF](./screenshots/05-hq-r1-ospf.png)
+![HQ-R1 OSPF](./screenshots/05-hq-r1-ospf.PNG)
 
 ---
 
@@ -154,7 +154,7 @@ HQ-R2(config-router)# network 172.16.7.96 0.0.0.3 area 0
 HQ-R2(config-router)# network 172.16.7.100 0.0.0.3 area 0
 HQ-R2(config-router)# end
 ```
-![HQ-R2 OSPF](./screenshots/06-hq-r2-ospf.png)
+![HQ-R2 OSPF](./screenshots/06-hq-r2-ospf.PNG)
 
 ---
 
@@ -166,7 +166,7 @@ HQ-R3(config-router)# network 172.16.7.100 0.0.0.3 area 0
 HQ-R3(config-router)# network 172.16.7.104 0.0.0.3 area 0
 HQ-R3(config-router)# end
 ```
-![HQ-R3 OSPF](./screenshots/07-hq-r3-ospf.png)
+![HQ-R3 OSPF](./screenshots/07-hq-r3-ospf.PNG)
 
 ---
 
@@ -177,7 +177,7 @@ HQ-R3(config-router)# end
 | Subnet Mask | 255.255.252.0 |
 | Default Gateway | 172.16.0.1 |
 
-![PC-A IP](./screenshots/08-pca-ip.png)
+![PC-A IP](./screenshots/08-pca-ip.PNG)
 
 ---
 
@@ -188,7 +188,7 @@ HQ-R3(config-router)# end
 | Subnet Mask | 255.255.254.0 |
 | Default Gateway | 172.16.4.1 |
 
-![PC-B IP](./screenshots/09-pcb-ip.png)
+![PC-B IP](./screenshots/09-pcb-ip.PNG)
 
 ---
 
@@ -199,7 +199,7 @@ HQ-R3(config-router)# end
 | Subnet Mask | 255.255.255.0 |
 | Default Gateway | 172.16.6.1 |
 
-![PC-C IP](./screenshots/10-pcc-ip.png)
+![PC-C IP](./screenshots/10-pcc-ip.PNG)
 
 ---
 
@@ -210,7 +210,7 @@ PC-A> ping 172.16.6.10
 ```
 > **Gap to close:** this only verifies A→B and A→C. It doesn't confirm B→C reachability. For a complete full-mesh test, also run `PC-B> ping 172.16.6.10`.
 
-![Ping Results](./screenshots/11-ping-results.png)
+![Ping Results](./screenshots/11-ping-results.PNG)
 
 ---
 
@@ -220,7 +220,7 @@ HQ-R1# show ip route ospf
 HQ-R2# show ip route ospf
 HQ-R3# show ip route ospf
 ```
-![Routing Table](./screenshots/12-routing-table.png)
+![Routing Table](./screenshots/12-routing-table.PNG)
 
 ---
 
@@ -230,7 +230,7 @@ HQ-R1# copy running-config startup-config
 HQ-R2# copy running-config startup-config
 HQ-R3# copy running-config startup-config
 ```
-![Save Config](./screenshots/13-save-config.png)
+![Save Config](./screenshots/13-save-config.PNG)
 
 ---
 
