@@ -87,7 +87,7 @@ Set up all devices and connect cables exactly as shown above.
 No CLI commands in this step — this is a physical/logical wiring step done
 in the Packet Tracer GUI (drag devices, connect cables per the tables above).
 ```
-![Topology](./screenshots/01-topology.png)
+![Topology](./screenshots/01-topology.PNG)
 
 ---
 
