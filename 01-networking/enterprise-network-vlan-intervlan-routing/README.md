@@ -1,4 +1,4 @@
-# Enterprise Network VLAN & InterVLAN Routing
+# Enterprise Network VLAN & InterVLAN Routing 
 
 **Domain:** Networking
 **Difficulty:** Intermediate — Advanced
