@@ -37,7 +37,7 @@ Configure multiple VLANs on a switch, set up Inter-VLAN routing using Router-on-
 | PC-Sales | Switch1 | Fa0/3 |
 | Switch1 (trunk) | Router1 | Fa0/24 ↔ Gig0/0 |
 
-![Topology](./screenshots/lab_4_topo.PNG)
+![Topology](./screenshots/01.topology.PNG)
 
 ---
 
