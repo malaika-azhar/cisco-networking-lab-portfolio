@@ -38,7 +38,6 @@ Configure two routers in an HSRP group sharing one virtual gateway IP, with one 
 | LAN-PC01 | HQ-Core-SW01 | Fa0/10 |
 | LAN-PC02 | HQ-Core-SW01 | Fa0/11 |
 
-![Topology](./screenshots/01-hsrp-topology-final.PNG)
 
 ---
 
