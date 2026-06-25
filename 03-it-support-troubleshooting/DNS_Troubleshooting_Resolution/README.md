@@ -171,5 +171,5 @@ Result: Captured response time shown in nslookup output, confirming consistent r
 
 ---
 
-## 📝 Note on Environment
+## 📝 Why No Packet Tracer in This Lab
 Unlike the Networking and Security labs in this portfolio, this lab does not use Cisco Packet Tracer or any virtual machine. It was performed directly on a Windows 10 Pro 64-bit physical machine (HP 255 G5), since DNS troubleshooting is an OS-level skill, not a network-device skill. All results documented here are real outputs from this machine, not staged or simulated.
