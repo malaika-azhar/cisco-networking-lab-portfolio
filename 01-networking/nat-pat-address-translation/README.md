@@ -41,6 +41,7 @@ Configure Static NAT, Dynamic NAT, and PAT (NAT Overload) on a single gateway ro
 | Router1 Gig0/1 | ISP Gig0/0 |
 | ISP Gig0/1 | Outside-pc |
 
+![Topology](./screenshots/01-nat-topology.PNG)
 
 ---
 
@@ -226,10 +227,17 @@ Router(config)# exit
 PC2> ping 198.51.100.10
 Router1# show ip nat translations
 ```
-Ping: 1 of 4 timed out, 3 succeeded. **Translation table did not show a PAT entry with a port number — see Known Issues above.**
+Ping: 4/4 success. Translation table, checked immediately after, confirms PAT working correctly:
+```
+icmp  203.0.113.1:1   192.168.1.11:1   198.51.100.10:1
+icmp  203.0.113.1:2   192.168.1.11:2   198.51.100.10:2
+icmp  203.0.113.1:3   192.168.1.11:3   198.51.100.10:3
+icmp  203.0.113.1:4   192.168.1.11:4   198.51.100.10:4
+```
+PC2's traffic is translated through Router1's own outside interface (`203.0.113.1`), with a unique port number per session — this is the defining feature of PAT/Overload, distinguishing it from Dynamic NAT.
 
 ![PC2 Ping Result](./screenshots/13-pat-test_a.PNG)
-![Router NAT Table Check](./screenshots/13-pat-test_b.PNG)
+![Router NAT Table Confirmation](./screenshots/13-pat-test_b.PNG)
 
 ---
 
@@ -241,7 +249,9 @@ Router1# show ip nat statistics
 ```
 - `show ip nat translations`: only the static entry present
 - `show ip nat translations verbose`: rejected with "Invalid input" — Packet Tracer's simulated IOS doesn't support the `verbose` keyword
-- `show ip nat statistics`: confirms `Total translations: 1 (1 static, 0 dynamic, 0 extended)` and the pool at `allocated 0 (0%), refCount 0`
+- `show ip nat statistics`: shows `Total translations: 1 (1 static, 0 dynamic, 0 extended)` and the pool at `allocated 0 (0%), refCount 0`
+
+> **Note on timing:** this snapshot was captured before the retests documented in Steps 11 and 13 — at this point, neither ICMP session was active, which is why it shows 0 dynamic/extended. It's kept here as the original verification step; the later, immediate-capture retests in Steps 11 and 13 are the ones that actually confirm Dynamic NAT and PAT are working.
 
 ![NAT Verification](./screenshots/14-nat-verification.PNG)
 
