@@ -41,7 +41,6 @@ Configure Static NAT, Dynamic NAT, and PAT (NAT Overload) on a single gateway ro
 | Router1 Gig0/1 | ISP Gig0/0 |
 | ISP Gig0/1 | Outside-pc |
 
-![Topology](./screenshots/01-nat-topology.PNG)
 
 ---
 
