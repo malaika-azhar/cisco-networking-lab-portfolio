@@ -57,7 +57,7 @@ Win + I → Update & Security → Windows Update
   "Your device is no longer receiving security updates"
   → This is a real-world IT Support scenario — Windows 10 22H2 EOL
 ```
-![Windows Update Status](./screenshots/01-windows-update-status.PNG)
+![Windows Update Status](./screenshots/01-windows-update-status.PNG) 
 
 ---
 
