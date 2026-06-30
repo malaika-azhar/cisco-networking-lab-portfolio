@@ -101,7 +101,7 @@ HQ-PC: IP 192.168.1.20, Mask 255.255.255.0, Gateway 192.168.1.1
 Branch-PC: IP 192.168.2.20, Mask 255.255.255.0, Gateway 192.168.2.1
 SYSLOG-Server: IP 192.168.1.10, Mask 255.255.255.0, Gateway 192.168.1.1
 ```
-![HQ-PC IP Config](./screenshots/03-hq-pc-ip-config.PNG)
+![HQ-PC IP Config](./screenshots/3-hq-pc-ip-config.PNG)
 
 ---
 
@@ -111,7 +111,7 @@ Since HQ and Branch are on different subnets, static routes are required so each
 HQ-Router(config)# ip route 192.168.2.0 255.255.255.0 10.0.0.2
 Branch-Router(config)# ip route 192.168.1.0 255.255.255.0 10.0.0.1
 ```
-![Routing Config](./screenshots/04-routing-config.PNG)
+![Routing Config](./screenshots/4-routing-config.PNG)
 
 ---
 
@@ -120,7 +120,7 @@ Verify HQ-PC can reach Branch-PC across the WAN link.
 ```
 HQ-PC> ping 192.168.2.20
 ```
-![Ping Test](./screenshots/05-ping-test.PNG)
+![Ping Test](./screenshots/5-ping-test.PNG)
 
 ---
 
@@ -129,7 +129,7 @@ Turn on the Syslog service so the server can start receiving log messages.
 ```
 SYSLOG-Server > Services tab > SYSLOG > Service: On
 ```
-![Syslog Service On](./screenshots/06-syslog-service-on.PNG)
+![Syslog Service On](./screenshots/6-syslog-service-on.PNG)
 
 ---
 
@@ -139,7 +139,7 @@ Add timestamps to log messages so each entry can be traced to an exact time.
 HQ-Router(config)# service timestamps log datetime msec
 Branch-Router(config)# service timestamps log datetime msec
 ```
-![Timestamp Config](./screenshots/07-timestamp-config.PNG)
+![Timestamp Config](./screenshots/7-timestamp-config.PNG)
 
 ---
 
@@ -148,7 +148,7 @@ Branch-Router(config)# service timestamps log datetime msec
 HQ-Router(config)# logging host 192.168.1.10
 HQ-Router(config)# logging trap debugging
 ```
-![HQ-Router Logging](./screenshots/08-hq-router-logging.PNG)
+![HQ-Router Logging](./screenshots/8-hq-router-logging.PNG)
 
 ---
 
@@ -157,7 +157,7 @@ HQ-Router(config)# logging trap debugging
 Branch-Router(config)# logging host 192.168.1.10
 Branch-Router(config)# logging trap debugging
 ```
-![Branch-Router Logging](./screenshots/09-branch-router-logging.PNG)
+![Branch-Router Logging](./screenshots/9-branch-router-logging.PNG)
 
 ---
 
