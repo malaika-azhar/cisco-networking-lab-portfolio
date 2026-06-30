@@ -40,7 +40,6 @@ Configure centralized logging (Syslog) across a two-site enterprise network (HQ 
 | Branch-Router | G0/0 | Branch-Switch | Fa0/24 | Copper Straight-through |
 | Branch-Switch | Fa0/1 | Branch-PC | FastEthernet0 | Copper Straight-through |
 
-![Topology](./screenshots/01-topology-overview.PNG)
 
 ---
 
